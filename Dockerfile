@@ -15,8 +15,8 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/* \
     && a2enmod rewrite
 
-ENV MANTIS_VER 2.24.4
-ENV MANTIS_MD5 c557b1203368c7427b92177de4ce7285
+ENV MANTIS_VER 2.25.2
+ENV MANTIS_MD5 0fbb55aa1f12ba4be8436a444465d5b1
 ENV MANTIS_URL https://sourceforge.net/projects/mantisbt/files/mantis-stable/${MANTIS_VER}/mantisbt-${MANTIS_VER}.tar.gz
 ENV MANTIS_FILE mantisbt.tar.gz
 
@@ -43,7 +43,7 @@ RUN set -xe \
 COPY config_inc.php /var/www/html/config/config_inc.php
 
 # Install additional plugins
-ENV SOURCE_TAG v2.4.1
+ENV SOURCE_TAG v2.5.1
 RUN set -xe && \
         curl -fSL https://github.com/mantisbt-plugins/source-integration/tarball/${SOURCE_TAG} -o /tmp/source.tar.gz && \
         mkdir /tmp/source && \
@@ -51,6 +51,10 @@ RUN set -xe && \
         cp -r /tmp/source/Source /tmp/source/SourceGitlab /tmp/source/SourceGithub /var/www/html/plugins/ && \
         rm -r /tmp/source
 
-COPY ./mantis-entrypoint /usr/local/bin/mantis-entrypoint
+RUN set -xe \
+    && ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime \
+    && echo 'date.timezone = "Asia/Taipei"' > /usr/local/etc/php/php.ini
 
-CMD ["mantis-entrypoint"]
+COPY ./mantis-entrypoint.sh /usr/local/bin/mantis-entrypoint.sh
+
+CMD ["mantis-entrypoint.sh"]

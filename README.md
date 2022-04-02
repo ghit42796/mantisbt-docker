@@ -1,6 +1,3 @@
-
-[![CI](https://github.com/okainov/mantisbt-docker/workflows/CI/badge.svg?branch=master)](https://github.com/okainov/mantisbt-docker/actions) [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/okainov/mantisbt)](https://hub.docker.com/r/okainov/mantisbt) [![Docker Pulls](https://img.shields.io/docker/pulls/okainov/mantisbt)](https://hub.docker.com/r/okainov/mantisbt)
-
 # MantisBT bug tracker Docker image
 
 Docker image for Mantis Bug Tracker https://www.mantisbt.org/
